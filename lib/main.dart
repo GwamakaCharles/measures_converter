@@ -42,6 +42,12 @@ class _UnitsConverterState extends State<UnitsConverter> {
       fontSize: 20,
       color: Colors.blue[900],
     );
+
+    final TextStyle labelStyle = TextStyle(
+      fontSize: 24,
+      color: Colors.grey[700],
+    );
+
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
