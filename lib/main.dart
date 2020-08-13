@@ -38,6 +38,10 @@ class _UnitsConverterState extends State<UnitsConverter> {
 
   @override
   Widget build(BuildContext context) {
+    final TextStyle inputStyle = TextStyle(
+      fontSize: 20,
+      color: Colors.blue[900],
+    );
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
