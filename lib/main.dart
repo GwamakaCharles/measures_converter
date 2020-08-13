@@ -7,63 +7,79 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    return UnitsConverter();
+  }
+}
+
+class UnitsConverter extends StatefulWidget {
+  @override
+  _UnitsConverterState createState() => _UnitsConverterState();
+}
+
+class _UnitsConverterState extends State<UnitsConverter> {
+  double _numberFrom;
+  String _startMeasure;
+  final List<String> _measures = [
+    'meters',
+    'kilometers',
+    'grams',
+    'kilograms',
+    'feet',
+    'miles',
+    'pounds(lbs)',
+    'ounces',
+  ];
+
+  @override
+  void initState() {
+    _numberFrom = 0;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Hello World Travel App'),
+          backgroundColor: Colors.green,
+          title: Text('Measures Converter'),
         ),
-        body: Builder(
-          builder: (context) => SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Text('Hello World Travel'),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Text('Discover the world'),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Image(
-                        image: AssetImage('images/pimLogo640.png'),
+        body: Center(
+          child: Column(
+            children: [
+              DropdownButton(
+                value: _startMeasure,
+                items: _measures
+                    .map(
+                      (e) => DropdownMenuItem<String>(
+                        value: e,
+                        child: Text(e),
                       ),
-                    ),
-                    SizedBox(
-                      height: 24,
-                    ),
-                    RaisedButton(
-                      onPressed: () => contactUs(context),
-                      child: Text('Contact Us'),
                     )
-                  ],
-                ),
+                    .toList(),
+                onChanged: (value) {
+                  setState(() {
+                    _startMeasure = value;
+                  });
+                },
               ),
-            ),
+              TextField(
+                onChanged: (text) {
+                  var rv = double.tryParse(text);
+                  if (rv != null) {
+                    setState(() {
+                      _numberFrom = rv;
+                    });
+                  }
+                },
+              ),
+              Text(
+                (_numberFrom == null) ? '' : _numberFrom.toString(),
+              ),
+            ],
           ),
         ),
       ),
     );
   }
-}
-
-void contactUs(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (context) => AlertDialog(
-      title: Text('Contact Us'),
-      content: Text('Mail us at hello@travel.co.tz'),
-      actions: [
-        FlatButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: Text('Close'),
-        )
-      ],
-    ),
-  );
 }
