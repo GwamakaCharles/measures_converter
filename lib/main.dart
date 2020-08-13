@@ -54,7 +54,8 @@ class _UnitsConverterState extends State<UnitsConverter> {
           backgroundColor: Colors.green,
           title: Text('Measures Converter'),
         ),
-        body: Center(
+        body: Container(
+          padding: EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             children: [
               DropdownButton(
